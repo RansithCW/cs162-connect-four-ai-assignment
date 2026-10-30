@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connect Four</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Connect Four</h1>
+    {% if session.get('user_id') %}
+      <nav>
+        <a href="{{ url_for('games.dashboard') }}">Games</a>
+        <a href="{{ url_for('games.statistics') }}">Statistics</a>
+        <form action="{{ url_for('auth.logout') }}" method="post"><button>Log out</button></form>
+      </nav>
+    {% endif %}
+  </header>
+  <main>
+    {% for message in get_flashed_messages() %}<p class="message" role="alert">{{ message }}</p>{% endfor %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Your games</h2>
+<form action="{{ url_for('games.new_game') }}" method="post"><button>New game</button></form>
+{% if games %}
+<table>
+  <thead><tr><th>Game</th><th>Started (UTC)</th><th>Result</th><th>Moves (human, bot)</th><th>Actions</th></tr></thead>
+  <tbody>
+  {% for game in games %}
+  <tr>
+    <td>#{{ game.id }}</td><td>{{ game.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+    <td>{{ game.status|capitalize }}</td>
+    <td>{{ game.moves|map(attribute='column')|map('int')|join(', ') }}</td>
+    <td><a href="{{ url_for('games.play', game_id=game.id) }}">{{ 'Resume' if game.status == 'playing' else 'View' }}</a>
+      · <a href="{{ url_for('games.replay', game_id=game.id, step=0) }}">Replay</a></td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}<p>No games yet. Start one!</p>{% endif %}
+<p class="hint">Move history shows zero-based columns, 0–6, alternating human and computer.</p>
+{% endblock %}

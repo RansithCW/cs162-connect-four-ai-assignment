@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Replay game #{{ game.id }}</h2>
+<p class="status">Move {{ step }} of {{ total }}{% if step > 0 %} — {{ 'Human' if step % 2 == 1 else 'Computer' }} just played{% endif %}</p>
+{% include '_board.html' %}
+<div class="replay-controls">
+  {% if step > 0 %}<a class="button" href="{{ url_for('games.replay', game_id=game.id, step=step-1) }}">Previous</a>{% endif %}
+  {% if step < total %}<a class="button" href="{{ url_for('games.replay', game_id=game.id, step=step+1) }}">Next</a>{% endif %}
+</div>
+<p><a href="{{ url_for('games.play', game_id=game.id) }}">Back to game</a></p>
+{% endblock %}

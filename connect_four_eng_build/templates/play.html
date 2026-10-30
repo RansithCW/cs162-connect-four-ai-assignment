@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Game #{{ game.id }}</h2>
+<p class="status" role="status">
+{% if game.status == 'playing' %}Your turn: choose a column.
+{% elif game.status == 'won' %}You win!
+{% elif game.status == 'lost' %}Computer wins.
+{% else %}Draw — the board is full.{% endif %}
+</p>
+{% if game.status == 'playing' %}
+  <form action="{{ url_for('games.move', game_id=game.id) }}" method="post" class="column-buttons">
+  {% for col in range(7) %}
+    <button type="submit" name="column" value="{{ col }}" {% if board[0][col] != 0 %}disabled{% endif %} aria-label="Drop in column {{ col + 1 }}">{{ col + 1 }}</button>
+  {% endfor %}
+  </form>
+{% endif %}
+{% include '_board.html' %}
+<p><a href="{{ url_for('games.replay', game_id=game.id, step=0) }}">Replay moves</a> ·
+<a href="{{ url_for('games.dashboard') }}">All games</a></p>
+{% endblock %}

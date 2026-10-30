@@ -1,0 +1,8 @@
+<div class="board" role="img" aria-label="Connect Four board, six rows and seven columns">
+  {% for row in board %}
+    {% for cell in row %}
+      <div class="cell {{ 'human' if cell == 1 else 'computer' if cell == 2 else 'empty' }}" aria-label="{{ 'Human' if cell == 1 else 'Computer' if cell == 2 else 'Empty' }}"></div>
+    {% endfor %}
+  {% endfor %}
+</div>
+<p class="legend"><span class="dot human"></span> You <span class="dot computer"></span> Computer</p>

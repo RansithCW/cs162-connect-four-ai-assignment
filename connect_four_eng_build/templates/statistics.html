@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Your statistics</h2>
+<dl class="stats">
+  <dt>Completed games</dt><dd>{{ total }}</dd>
+  <dt>Wins</dt><dd>{{ counts['won'] }}</dd>
+  <dt>Losses</dt><dd>{{ counts['lost'] }}</dd>
+  <dt>Draws</dt><dd>{{ counts['draw'] }}</dd>
+  <dt>Win percentage</dt><dd>{{ '%.1f'|format(percentage) }}%</dd>
+</dl>
+<p class="hint">Unfinished games are excluded from totals and win percentage.</p>
+{% endblock %}

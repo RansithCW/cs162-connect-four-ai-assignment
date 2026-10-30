@@ -1,0 +1,9 @@
+{% extends 'base.html' %}{% block content %}
+<section class="panel auth"><h1>{{ title }}</h1>
+<form method="post"><input type="hidden" name="csrf" value="{{ csrf }}">
+<label>Username<input name="username" minlength="3" maxlength="30" required autocomplete="username"></label>
+<label>Password<input type="password" name="password" minlength="8" required autocomplete="{{ 'new-password' if register else 'current-password' }}"></label>
+<button class="primary">{{ title }}</button></form>
+{% if register %}<p>Already have an account? <a href="{{ url_for('login') }}">Log in</a></p>
+{% else %}<p>New here? <a href="{{ url_for('register') }}">Create an account</a></p>{% endif %}
+</section>{% endblock %}
